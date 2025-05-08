@@ -51,6 +51,8 @@ Next, select the Variables tab and add the following variables:
 The DockerHub username and repo name are configured as varibles because they are not sensitive and by using variables we are able to see the resulting docker image tag in the bulid output.  If we configured these values as secrets they would be obfuscated in the GitHub Action build output.
 
 ## Running the Docker image
+The production Docker image can be found in DockerHub here: https://hub.docker.com/repository/docker/joelweirauch/slack-me/general
+
 The Docker image will need to have one environment variable set, `SLACK_SECRET`, and will also need to have a valid `.env` file with an environment-specific APP_KEY configured mounted when run.
 
 The following is an example of running the `latest` tag from DockerHub using the value `foo` for the `SLACK_SECRET` environment variable and mounting an `.env.production` file from the current path to `/run/.env`:
