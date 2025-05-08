@@ -1,0 +1,32 @@
+name: Build Docker Image
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract metadata (including tag)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            mathamoz/slack-me
+          tags: |
+            type=ref,event=tag
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: false
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
